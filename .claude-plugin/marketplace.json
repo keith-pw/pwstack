@@ -1,0 +1,14 @@
+{
+  "name": "pencilwrench-plugins",
+  "description": "Internal Pencilwrench plugin marketplace.",
+  "owner": {
+    "name": "Pencilwrench"
+  },
+  "plugins": [
+    {
+      "name": "pwstack",
+      "source": "./",
+      "description": "Pencilwrench engineering skills: rigor principles, verification discipline, and writing standards for agents."
+    }
+  ]
+}
