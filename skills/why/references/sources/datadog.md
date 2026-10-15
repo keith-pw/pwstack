@@ -18,6 +18,8 @@ Datadog answers "what was the production reality around the time this code was w
 
 Use the `pup` CLI (Datadog API; the us5 region is already configured). `pup --help` lists the domains (`monitors`, `dashboards`, `metrics`, `logs`, `events`, `error-tracking`, `apm`, and more) plus query-syntax and time-format guidance; `pup <domain> --help` lists actions and flags. Start broad, then narrow.
 
+`pup` often loses its login. If a call fails because it is not authenticated, run `pup auth refresh` with the Claude Code sandbox off (it writes tokens to `~/.config/pup/`), then retry the call. If the refresh fails too, `pup auth login` needs a browser: ask the user to run it, and record Datadog as a gap until then.
+
 1. **Dashboards and monitors first. They tell you what the team cares about.** Search `pup dashboards` and `pup monitors` for the feature name, service name, or symbol. When a dashboard or monitor covers the target, note its queries and watched thresholds. The threshold is frequently the answer to "why is this clamped at N?"
 
 2. **Metrics around the target.** Use `pup metrics` to find metric names matching the feature or symbol, then pull the timeseries: was there a spike around the PR date? Correlating a metric's trajectory with the target's add/change date is strong supporting evidence: "the `payment_timeout` metric spiked 2025-11-03, and the retry logic merged 2025-11-06."

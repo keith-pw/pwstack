@@ -8,7 +8,7 @@
     {
       "name": "pwstack",
       "source": "./",
-      "description": "Pencilwrench engineering skills: rigor principles, verification discipline, and writing standards for agents."
+      "description": "Engineering workflows for pwrench-server: take Jira work from ticket to PR, with skills to explore, decide, review and write."
     }
   ]
 }

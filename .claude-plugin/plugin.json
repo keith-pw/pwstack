@@ -1,11 +1,11 @@
 {
   "name": "pwstack",
   "displayName": "PWStack",
-  "description": "Pencilwrench engineering skills for Claude Code: the pw-mode workflow router, playbooks, rigor principles, verification discipline, and writing standards for agents.",
-  "version": "0.2.0",
+  "description": "Engineering workflows for pwrench-server: take Jira work from ticket to PR, with skills to explore, decide, review and write.",
+  "version": "0.3.0",
   "author": {
     "name": "Pencilwrench"
   },
   "license": "MIT",
-  "keywords": ["engineering", "principles", "verification", "writing", "workflow", "pw-mode", "playbooks", "subagents"]
+  "keywords": ["workflow", "jira", "planning", "review", "verification", "writing"]
 }

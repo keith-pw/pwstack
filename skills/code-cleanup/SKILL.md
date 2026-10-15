@@ -1,6 +1,6 @@
 ---
 name: code-cleanup
-description: Runs once before pushing code for a feature or bug fix is code-complete. Ensures the code clean before it is pushed to the main branch.
+description: Runs once before pushing code for a feature or bug fix is code-complete. Ensures the code is clean before it is pushed to remote.
 ---
 
 Read AGENTS.md in the project again and look at all the changes you did with a fresh set of eyes - see if anything can be simplified or if there are any issues/gaps.
