@@ -88,6 +88,7 @@ Write for a reader in a hurry:
 - Round 1: show the defaults list and at most 3 cards (the root decisions first). Then call `AskUserQuestion` with one question per card. Put the recommended option first, with "(Recommended)". The user can reply about any default in the same answer.
 - After each round, drop or change the decisions that the answers settled. Then ask the next round, again at most 3 cards.
 - Stop when no big decision is open.
+- Every question, in all rounds and follow-ups (review findings included), gets its full card (step 4) in the message before `AskUserQuestion`. Never ask with only the question box: it is too small to hold the context.
 
 ## 7. Record
 
