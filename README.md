@@ -31,7 +31,7 @@ claude plugin update pwstack@pencilwrench-plugins
 | `ticket` | Start a Jira ticket. Plan mode, research, decisions, a reviewed plan with PR slices, then the build. |
 | `decide` | Design choices. Sorts them into big, small and detail. Asks the user only about the big ones. |
 | `second-opinion` | A GPT review (opencode `review` agent) of a plan or a diff, then triage of its findings. |
-| `ship` | The code is complete. Checks, cleanup, review, a test-it-yourself list, then commit, PR and Jira on "ship". |
+| `ship` | The code is complete. Checks, cleanup, review, a test-it-yourself list, then commit, PR and Jira on "ship". Then it waits for Copilot and verifies its comments. |
 
 The plugin also adds a `UserPromptSubmit` hook (`hooks/plan-gate.mjs`). When a prompt names a PWDEV ticket outside plan mode, it tells the agent to plan first.
 
