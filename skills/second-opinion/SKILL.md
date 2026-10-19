@@ -1,6 +1,6 @@
 ---
 name: second-opinion
-description: Get a review from a second model (the opencode `review` agent, a GPT model) on a design plan or on local changes, then triage its findings. Use from /ticket (plan review) and /ship (code review), or when asked for a second opinion or an opencode review.
+description: Get a review from a second model (the opencode `review` agent, a GPT model) on a design plan or on local changes, then triage its findings. Use from the cruise-control Ticket playbook (plan review) and Ship playbook (code review), or when asked for a second opinion or an opencode review.
 argument-hint: "<plan|code> <PWDEV-N>: <title>"
 ---
 

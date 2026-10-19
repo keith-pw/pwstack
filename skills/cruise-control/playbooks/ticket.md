@@ -1,20 +1,8 @@
----
-name: ticket
-description: Take a Jira ticket (PWDEV-N) from the issue to an approved plan, then build it. Restates the problem, researches, turns each decision into a short card for the user, writes the plan and gets it reviewed by a second model. Use when the user says "/ticket PWDEV-N", "work on PWDEV-N", "lets do PWDEV-N" or similar.
-argument-hint: PWDEV-N
----
-
 # Ticket
 
-Ticket: $ARGUMENTS
+Take a Jira ticket (PWDEV-N) from the issue to an approved plan, then build it. The ticket is the PWDEV key in the user's prompt.
 
-## Care about the codebase
-
-The user cares about the long-term health of this codebase, not only about this ticket. Work as a strategic programmer, not only a tactical one:
-
-- Each change must leave the codebase easier to change, not harder. Do not pile new code onto a mess.
-- If the code is not ready for this change, say so. Make the change easy first (a refactor), then make the easy change.
-- Push back like a senior engineer who owns this code for years, even when the refactor costs time now. The user decides (step 4), but you must raise it.
+Apply [Make the Change Easy First](../principles/make-the-change-easy-first.md) at every step. Step 3 finds what makes the change hard, step 4 raises it, step 8 stops on shortcuts.
 
 Follow the steps in order.
 
@@ -77,5 +65,5 @@ Call `ExitPlanMode`. The user approves or sends changes.
 3. Build to the plan, test first (the repo's TDD rule: Red → Green → Refactor). Split work by the repo's "Agent Selection" table, except: never use the `react-frontend` agent. Do React work yourself.
 4. A new decision comes up: a small one gets a clear default, added to a "Defaults I used" list. A big one: stop and run `/decide`.
 5. The plan turns out wrong (the same workaround in many places, `any`, forced casts, a type that lies): stop and tell the user in two lines. Do not patch around it. A shortcut that makes the codebase worse is a decision for the user, not a detail.
-6. Something breaks that the plan does not cover (a test or feature outside this ticket, data, the build): stop and tell the user in two lines. Keep a list of everything you find on the way. `/ship` puts it under "Heads up".
-7. When the code is complete, run `/ship <PWDEV-N>`.
+6. Something breaks that the plan does not cover (a test or feature outside this ticket, data, the build): stop and tell the user in two lines. Keep a list of everything you find on the way. The Ship playbook puts it under "Heads up".
+7. When the code is complete, run the [Ship](ship.md) playbook.
