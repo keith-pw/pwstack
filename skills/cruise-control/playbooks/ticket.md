@@ -60,9 +60,9 @@ Call `ExitPlanMode`. The user approves or sends changes.
 
 ## 8. Build
 
-1. Move the issue to In Progress: `acli jira workitem transition --key <PWDEV-N> --status "In Progress" --yes`. If the status name is wrong, tell the user the error and go on.
+1. Before any code, move the issue to In Progress: `acli jira workitem transition --key <PWDEV-N> --status "In Progress" --yes`. Then read the status back with `acli jira workitem view <PWDEV-N> --fields status`. Report only a status you read. If the move fails, tell the user the error and go on.
 2. Work on a branch `<PWDEV-N>-<short-name>` off `main`. In a fresh worktree, run `yarn setup` first.
-3. Build to the plan, test first (the repo's TDD rule: Red → Green → Refactor). Split work by the repo's "Agent Selection" table, except: never use the `react-frontend` agent. Do React work yourself.
+3. Build to the plan, test first (the repo's TDD rule: Red → Green → Refactor). Finish each slice on its own branch and run its checks before you start the next slice. Split work by the repo's "Agent Selection" table, except: never use the `react-frontend` agent. Do React work yourself.
 4. A new decision comes up: a small one gets a clear default, added to a "Defaults I used" list. A big one: stop and run `/decide`.
 5. The plan turns out wrong (the same workaround in many places, `any`, forced casts, a type that lies): stop and tell the user in two lines. Do not patch around it. A shortcut that makes the codebase worse is a decision for the user, not a detail.
 6. Something breaks that the plan does not cover (a test or feature outside this ticket, data, the build): stop and tell the user in two lines. Keep a list of everything you find on the way. The Ship playbook puts it under "Heads up".

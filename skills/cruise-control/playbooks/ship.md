@@ -6,12 +6,15 @@ Issue: the PWDEV key from the prompt, the conversation or the branch name. Work 
 
 A change that works but leaves the code harder to change is not ready to ship without the user knowing it ([Make the Change Easy First](../principles/make-the-change-easy-first.md)).
 
+The reports in B and C.7 are message text. Write the full report in your message before you call any tool that ends the turn, such as a wrap-up or next-step tool. A recap or a status line never replaces the report.
+
 ## A. Prove it (no user input)
 
 1. Checks pass:
    - the tests of each workspace or app the change touches (`yarn workspace <name> test`, never bare `vitest`; `pytest` for Django);
    - `yarn workspace <name> lint` and the typecheck for each touched workspace;
    - `yarn fmt:write`, then `yarn pre-commit:run`.
+   Run them on each slice branch, bottom slice first. Each PR merges on its own, so each slice must pass on its own ([Sequence Verifiable Units](../principles/sequence-verifiable-units.md)). When a slice changes an API response, regenerate the client on that branch (`yarn django:host:schema && yarn build:packages`) and typecheck the front end there.
    If a check fails, fix it or tell the user. Never skip a hook or use `--no-verify`.
 2. Run `/code-cleanup` on the change.
 3. Codebase health: run the repo's `code-smells` agent on the diff. Ask: is the touched code easier or harder to change than before this change? Fix what is cheap to fix now. List the rest as debt for "Heads up".
@@ -28,7 +31,8 @@ A change that works but leaves the code harder to change is not ready to ship wi
 Send this, and keep it short. "Heads up" comes first and is never skipped. Write "Nothing" only when you checked every item below and found none.
 
 Heads up lists, one line each, worst first:
-- Something that is broken or fails now (a test, a feature, the build), even when it is outside this ticket.
+- Something that is broken or fails now (a test, a feature, the build), even when it is outside this ticket or fails only sometimes.
+- A plan item you did not do (a test, a file, a check).
 - A change in behavior the user did not ask for, or a change from the approved plan.
 - A risk you accepted, or a review finding you dismissed that the user may disagree with.
 - A manual step: a new env var, a migration, a data fix, a feature flag.
@@ -41,7 +45,7 @@ Heads up lists, one line each, worst first:
 
 **Heads up:** <the items above, or "Nothing">
 **What changed:** 3–5 bullets, plain words.
-**Proved:** checks, review findings (fixed / dismissed counts), what you ran.
+**Proved:** checks and what you ran. Review findings: one line each, fixed or dismissed with the reason.
 **PRs:** <one line per slice: name, file count>
 **Test it yourself:**
 1. <exact command or click>, and what you should see.
@@ -59,7 +63,7 @@ Say "ship" to commit, push and open the PR.
    - One slice: push the branch, then open the PR with the repo's `open-pr` skill and `--reviewer @copilot`.
    - More than one slice: build the stack with `gh stack` (`gh stack --help`), one branch per slice, and submit it. Then fill each PR body with the repo's `open-pr` format (Release Notes section) and add `@copilot` as a reviewer on each.
    - Open them ready, not as drafts. Run `gh pr view <number>` before you report a PR's state.
-4. Jira: add a comment with the PR links, decisions taken and follow-ups (ADF JSON, see `acli jira workitem comment create --help`). Then move the issue to In Review: `acli jira workitem transition --key <PWDEV-N> --status "In Review" --yes`. If the status name is wrong, tell the user the error.
+4. Jira: add a comment with the PR links, decisions taken and follow-ups (ADF JSON, see `acli jira workitem comment create --help`). Then move the issue to Code Review: `acli jira workitem transition --key <PWDEV-N> --status "Code Review" --yes`. If the status name is wrong, tell the user the error.
 5. Do not merge. The user merges.
 6. Follow-up work found during the ticket: show the text to the user and ask where it goes (an existing issue or a new one).
 7. Copilot review. Start the wait right after step 3, so it runs during steps 4–6.
