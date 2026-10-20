@@ -19,11 +19,11 @@ Be in plan mode before step 2. If you are not, write "This ticket needs a plan f
 
 ## 3. Ground
 
-Run these in parallel subagents. Each returns 500 words or fewer, with `file:line` evidence. Keep raw file dumps out of the main context.
+Run these 4 in parallel subagents. The first 3 are pwstack skills. Start each one as a `general-purpose` subagent (it can start its own subagents; `Explore` cannot) and tell it: "Read `<pwstack>/skills/<name>/SKILL.md` and follow it. Return the skill's own output in full, with `file:line` evidence. Do not return raw file contents or command output." `<pwstack>` is two folders above `<cruise-control>`.
 
-- `how`: how the code that the issue touches works now.
-- `why`: the reasons behind that code (git history, Jira, docs, Sentry, Datadog, PostHog).
-- `blast-radius`: what else reads or writes the data, contracts or files this change will touch.
+- `how` skill: how the code that the issue touches works now.
+- `why` skill: the reasons behind that code (git history, Jira, docs, Sentry, Datadog, PostHog).
+- `blast-radius` skill: what else reads or writes the data, contracts or files this change will touch.
 - The repo's `code-smells` agent, on the code this change touches: what makes this change harder than it should be? Name each smell, the refactoring that removes it, and how much of the change it makes simpler.
 
 ## 4. Decisions

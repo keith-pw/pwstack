@@ -20,7 +20,7 @@ Read these principles first, in full: [Prove It Works](../principles/prove-it-wo
    If a check fails, fix it or tell the user. Never skip a hook or use `--no-verify`.
 2. Run `/code-cleanup` on the change.
 3. Codebase health: run the repo's `code-smells` agent on the diff. Ask: is the touched code easier or harder to change than before this change? Fix what is cheap to fix now. List the rest as debt for "Heads up".
-4. Run `blast-radius` on the diff. Prove the main safety fact with a command, not with words.
+4. Run the `blast-radius` skill on the diff in a `general-purpose` subagent, the same way as Ticket step 3. Prove the main safety fact with a command, not with words.
 5. Run `/second-opinion code <PWDEV-N>: <title>`. If you change code, run step 1 again.
 6. Run the feature the way a user would.
    - A project verification skill exists (`.claude/skills/verify-*`): use it.
