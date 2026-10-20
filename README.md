@@ -39,7 +39,7 @@ Playbooks live in `skills/cruise-control/playbooks/`. Debugging and code review 
 
 The principles live in `skills/cruise-control/principles/`, one file each. Steer the agent with a principle's name: "apply prove it works, run the real import and show me the rows". Most are adapted from pstack. `make-the-change-easy-first` is ours: each change must leave the code easier to change.
 
-The plugin also adds a `UserPromptSubmit` hook (`hooks/plan-gate.mjs`). When a prompt names a PWDEV ticket outside plan mode, it tells the agent to plan first and to follow cruise control.
+Start ticket work with `/pwstack:cruise-control PWDEV-N`. A plain "work on PWDEV-N" does not load the Ticket playbook, so the agent does not plan first.
 
 ## Other skills
 

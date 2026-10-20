@@ -2,7 +2,7 @@
   "name": "pwstack",
   "displayName": "PWStack",
   "description": "Engineering workflows for pwrench-server: take Jira work from ticket to PR, with skills to explore, decide, review and write.",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "author": {
     "name": "Pencilwrench"
   },
