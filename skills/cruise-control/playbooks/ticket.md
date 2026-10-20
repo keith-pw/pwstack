@@ -28,6 +28,8 @@ Run these in parallel subagents. Each returns 500 words or fewer, with `file:lin
 
 ## 4. Decisions
 
+Read these principles first, in full: [Make the Change Easy First](../principles/make-the-change-easy-first.md), [Redesign From First Principles](../principles/redesign-from-first-principles.md), [Model the Domain](../principles/model-the-domain.md). They apply to steps 4 and 5.
+
 List all the decisions this ticket needs. Settle details yourself.
 
 Always include "prepare first?" when step 3 found code that makes this change harder: refactor first, or build on the code as it is. Give your honest pick. "Build as it is" is the right pick only when the refactor does not make this change or the next likely ones simpler.
@@ -59,6 +61,8 @@ Run `/second-opinion plan <PWDEV-N>: <title>` on the plan. Fill in the plan's **
 Call `ExitPlanMode`. The user approves or sends changes.
 
 ## 8. Build
+
+Read these principles first, in full: [Test Behavior, Not Implementation](../principles/test-behavior-not-implementation.md), [Laziness Protocol](../principles/laziness-protocol.md), [Sequence work into verifiable units](../principles/sequence-verifiable-units.md).
 
 1. Before any code, move the issue to In Progress: `acli jira workitem transition --key <PWDEV-N> --status "In Progress" --yes`. Then read the status back with `acli jira workitem view <PWDEV-N> --fields status`. Report only a status you read. If the move fails, tell the user the error and go on.
 2. Work on a branch `<PWDEV-N>-<short-name>` off `main`. In a fresh worktree, run `yarn setup` first.

@@ -32,7 +32,7 @@ This skill's directory is `${CLAUDE_SKILL_DIR}` (the folder that holds this file
 
 ## Non-negotiables
 
-- In your reply, name each principle that shaped a decision and the choice it changed. Cite only principles whose file you read this session.
+- Each playbook step lists the principles it needs. Read them when you reach that step. Outside a playbook, read the principles below whose trigger fits the task before you start.
 - Every code change: [Make the Change Easy First](principles/make-the-change-easy-first.md).
 - Before you say "done": [Prove It Works](principles/prove-it-works.md).
 - The user owns these gates: plan approval (`ExitPlanMode`), big decisions (`decide`), and "ship". Never merge. Take a clear default for small decisions, list it, and continue.

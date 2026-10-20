@@ -10,6 +10,8 @@ The reports in B and C.7 are message text. Write the full report in your message
 
 ## A. Prove it (no user input)
 
+Read these principles first, in full: [Prove It Works](../principles/prove-it-works.md), [Sequence work into verifiable units](../principles/sequence-verifiable-units.md).
+
 1. Checks pass:
    - the tests of each workspace or app the change touches (`yarn workspace <name> test`, never bare `vitest`; `pytest` for Django);
    - `yarn workspace <name> lint` and the typecheck for each touched workspace;
