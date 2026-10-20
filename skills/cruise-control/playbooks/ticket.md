@@ -14,15 +14,14 @@ Be in plan mode before step 2. If you are not, write "This ticket needs a plan f
 
 1. Get the issue with `acli jira workitem view <PWDEV-N>`, with its comments, parent and linked issues. Note its acceptance criteria.
 2. Read the root `AGENTS.md` and the `AGENTS.md` of each folder the issue touches. Read the `.agents/instructions/` files they link for this kind of work (TDD, E2E, code readability).
-3. Look for a design doc or plan for this work under `docs/**`.
-4. Tell the user, in 3–5 plain lines: the problem, what "done" looks like, and what is out of scope. Ask only if the issue is unclear. Otherwise continue. The user interrupts if you got it wrong.
+3. Tell the user, in 3–5 plain lines: the problem, what "done" looks like, and what is out of scope. Ask only if the issue is unclear. Otherwise continue. The user interrupts if you got it wrong.
 
 ## 3. Ground
 
 Run these 4 in parallel subagents. The first 3 are pwstack skills. Start each one as a `general-purpose` subagent (it can start its own subagents; `Explore` cannot) and tell it: "Read `<pwstack>/skills/<name>/SKILL.md` and follow it. Return the skill's own output in full, with `file:line` evidence. Do not return raw file contents or command output." `<pwstack>` is two folders above `<cruise-control>`.
 
 - `how` skill: how the code that the issue touches works now.
-- `why` skill: the reasons behind that code (git history, Jira, docs, Sentry, Datadog, PostHog).
+- `why` skill: the reasons behind that code (git history, Jira, docs, Sentry, Datadog, PostHog), and any design doc or plan for this work under `docs/**`.
 - `blast-radius` skill: what else reads or writes the data, contracts or files this change will touch.
 - The repo's `code-smells` agent, on the code this change touches: what makes this change harder than it should be? Name each smell, the refactoring that removes it, and how much of the change it makes simpler.
 
