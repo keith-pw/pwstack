@@ -10,7 +10,7 @@ Decisions: $ARGUMENTS
 
 Handle all the decisions together in one run, not one run per decision.
 
-Weigh each option by two costs: the cost now, and what it does to the codebase over time ([Make the Change Easy First](../cruise-control/principles/make-the-change-easy-first.md)). An option that is fast now but makes the next changes harder is not the cheap option. Say so in its "Bad" column.
+Weigh each option by two costs: the cost now, and what it does to the codebase over time ([Make the Change Easy First](../../principles/make-the-change-easy-first.md)). An option that is fast now but makes the next changes harder is not the cheap option. Say so in its "Bad" column.
 
 ## Sizes
 
@@ -92,4 +92,4 @@ Write for a reader in a hurry:
 
 ## 7. Record
 
-Write each decision in the plan's **Decisions** section: the choice, the rejected option and the reason. During the build, add it to the "Defaults I used" list (small) or tell the user (big), so the Ship playbook can show it.
+Write each decision in the plan's **Decisions** section (in the Ticket playbook the plan comes after `/decide`, so keep them for it): the choice, the rejected option and the reason. During the build, add it to the "Defaults I used" list (small) or tell the user (big), so the Ship playbook can show it.

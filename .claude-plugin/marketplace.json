@@ -8,7 +8,7 @@
     {
       "name": "pwstack",
       "source": "./",
-      "description": "Engineering workflows for pwrench-server: take Jira work from ticket to PR, with skills to explore, decide, review and write."
+      "description": "Engineering workflows for PencilWrench: take Jira work from ticket to PR, with skills to explore, decide, review and write."
     }
   ]
 }

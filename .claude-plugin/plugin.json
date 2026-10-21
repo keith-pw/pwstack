@@ -1,11 +1,18 @@
 {
   "name": "pwstack",
   "displayName": "PWStack",
-  "description": "Engineering workflows for pwrench-server: take Jira work from ticket to PR, with skills to explore, decide, review and write.",
-  "version": "0.5.7",
+  "description": "Engineering workflows for PencilWrench: take Jira work from ticket to PR, with skills to explore, decide, review and write.",
+  "version": "0.6.0",
   "author": {
     "name": "Pencilwrench"
   },
   "license": "MIT",
-  "keywords": ["workflow", "jira", "planning", "review", "verification", "writing"]
+  "keywords": [
+    "workflow",
+    "jira",
+    "planning",
+    "review",
+    "verification",
+    "writing"
+  ]
 }
