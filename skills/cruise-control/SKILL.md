@@ -15,7 +15,7 @@ This skill's directory is `${CLAUDE_SKILL_DIR}` (the folder that holds this file
 ## Route
 
 1. Match the task to one route in the table. When two routes fit, ask the user which one.
-2. For a playbook: read it in full. Open the task list with the playbook's steps as the first items, before any task-specific items. A step you skip stays in the list with `skip: <reason>`.
+2. For a playbook: tell the user which one you use, in one line, before anything else: `**Playbook: <name>** (<what in the task matched its route>)`. Then read it in full. Open the task list with the playbook's steps as the first items, before any task-specific items. A step you skip stays in the list with `skip: <reason>`. Name the playbook again each time you start one, including when one playbook hands off to another (Ticket to Ship).
 3. For a skill: run it.
 4. No route fits: say so in one line, then do the work under the principles in `<pwstack>/principles/INDEX.md`. Do not invent a playbook.
 

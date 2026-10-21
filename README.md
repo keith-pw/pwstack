@@ -74,7 +74,7 @@ Start ticket work with `/pwstack:cruise-control PWDEV-N`. A plain "work on PWDEV
 | `gpt-adversary` | GPT (opencode) | yes | yes | Tries to break the work. Code: correctness, what breaks outside the diff, data, races, performance, auth and injection, temporary code, failure handling. Plans: premise, assumptions, failure modes, contracts and operations, slice order |
 | `code-smells` | Sonnet | no | yes | The repo's own agent: structural smells and the refactorings that remove them |
 
-The GPT reviewer runs the opencode `adversary` agent from `opencode/agents/adversary.md`. It is read-only: no edits, no subagents, and only read-only `git` commands. Link it into opencode once:
+The GPT reviewer runs the opencode `adversary` agent from `opencode/agents/adversary.md`. Its config denies edits, and its prompt keeps the rest read-only: no writes and no state changes. Bash is not limited by config, so a background review never stops on a permission rule. Link it into opencode once:
 
 ```bash
 ln -s ~/code/pwstack/opencode/agents/adversary.md ~/.config/opencode/agents/adversary.md
