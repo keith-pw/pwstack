@@ -4,21 +4,27 @@ Engineering workflows for PencilWrench: take Jira work from ticket to PR, with s
 
 ## Install
 
+Install pwstack in pwrench-server only (`--scope local`), not for your user. The default scope is `user`, which loads it in every project. Run from pwrench-server:
+
 ```bash
+cd ~/code/pwrench-server
 claude plugin marketplace add ~/code/pwstack
-claude plugin install pwstack@pencilwrench-plugins
+claude plugin install pwstack@pencilwrench-plugins --scope local
 ```
 
-Then run `/reload-plugins`, or start a new session. Check with `claude plugin list`.
+Then run `/reload-plugins`, or start a new session. Check with `claude plugin list` from pwrench-server: pwstack shows `Scope: local` and `Status: ✔ enabled`.
 
 ## Update
 
-The install is a cache pinned to a git commit and a version. Uncommitted edits do not reach it. To pick up changes, bump `version` in `.claude-plugin/plugin.json`, commit, then:
+The install is a cache pinned to a git commit and a version. Uncommitted edits do not reach it. To pick up changes, bump `version` in `.claude-plugin/plugin.json`, commit, then run from pwrench-server:
 
 ```bash
+cd ~/code/pwrench-server
 claude plugin marketplace update pencilwrench-plugins
-claude plugin update pwstack@pencilwrench-plugins
+claude plugin update pwstack@pencilwrench-plugins --scope local
 ```
+
+A Claude Code worktree under `pwrench-server/.claude/worktrees/` has its own local install. Run the update from that worktree too, or it keeps the old version.
 
 ## Cruise control
 
