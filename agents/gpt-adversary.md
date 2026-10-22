@@ -23,12 +23,14 @@ dir="$(mktemp -d)" || exit 1; out="$dir/adversary.md"
 cat > "$dir/message.txt" <<'PWSTACK_MSG_END'
 <message>
 PWSTACK_MSG_END
-opencode run "$(cat "$dir/message.txt")" --agent adversary -m openai/gpt-6.1-sol --variant high --dir "<repo folder>" --title "<PWDEV-N> <plan|code> adversary" > "$out"; echo "exit=$? file=$out"
+opencode run "$(cat "$dir/message.txt")" --agent adversary -m openai/gpt-6.1-sol --variant high --dir "<repo folder>" --title "<PWDEV-N> <plan|code> adversary" < /dev/null > "$out"; echo "exit=$? file=$out"
 ```
 
 - `<repo folder>` is the `Repo` from the prompt. Plan mode has none: use the output of `git rev-parse --show-toplevel`.
 - Put the message in the quoted heredoc, never straight into the command line. A PR title or body is text from GitHub: inside double quotes, `$(…)` or backticks in it would run as commands.
-- Put the message argument first. `-f` takes every word after it as a file name, so put `-f <plan file>` last.
+- Put the message argument first. `-f` takes every word after it as a file name, so put `-f <plan file>` last, after `< /dev/null` is fine too: redirections are not arguments.
+- Keep `< /dev/null`. `opencode run` reads stdin until it closes whenever stdin is not a terminal, and the Bash tool's stdin never closes, so without it opencode waits forever and never calls the model.
+- Run it in the foreground. Do not use `run_in_background`, and do not poll the output file.
 - Run it with the sandbox off (`dangerouslyDisableSandbox: true`). opencode writes logs to `~/.local/share/opencode` and needs network access. The user approves the command.
 - Set the Bash timeout to 600000 (10 minutes).
 
