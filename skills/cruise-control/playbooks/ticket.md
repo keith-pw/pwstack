@@ -8,7 +8,7 @@ Follow the steps in order.
 
 **No code edits before the gate.** Until the step 6 gate passes, write no file in the repo. The only files you may write are the plan file and scratch scripts under `$TMPDIR` (for example a `blast-radius` proof).
 
-The user owns two gates in this playbook: big decisions (`/decide`) and contested review findings that need a design choice. The plan has no approval step. Its readers are the review agents.
+The user owns three gates in this playbook: big decisions (`/decide`), contested review findings that need a design choice, and child tickets. The plan has no approval step. Its readers are the review agents.
 
 ## 1. Read and restate
 
@@ -57,16 +57,19 @@ The readers are the review agents, not the user. Write for a reviewer who checks
 
 No diagrams, and no user test steps: the Ship playbook writes those.
 
+**More than 2 PR slices:** stop and propose child tickets, each with a title and its slices. On approval, create them under `<PWDEV-N>`, report their keys and stop. On "go on", continue.
+
 ## 5. Review the plan
 
 Run `/review-plan <PWDEV-N>: <title>` on the plan. It fixes the plan and fills in the **Review** section.
 
 ## 6. Gate
 
-Build when both hold:
+Build when all hold:
 
 - `/decide` is answered, or step 3 needed no decisions.
 - `/review-plan` left no blocking or major finding open.
+- At most 2 PR slices, or the user said go on.
 
 A contested finding stops for the user only when it needs a design choice: run `/decide`. Otherwise settle it yourself with evidence (read the code, run a command) and continue.
 

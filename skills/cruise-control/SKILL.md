@@ -36,7 +36,7 @@ This skill's directory is `${CLAUDE_SKILL_DIR}` (the folder that holds this file
 - Each playbook step lists the principles it needs. Read them when you reach that step. Outside a playbook, read the principles in `<pwstack>/principles/INDEX.md` whose trigger fits the task before you start.
 - Every code change: [Make the Change Easy First](../../principles/make-the-change-easy-first.md).
 - Before you say "done": [Prove It Works](../../principles/prove-it-works.md).
-- The user owns these gates: big decisions (`decide`), contested review findings that need a design choice (`decide`), and "ship". Never merge. Take a clear default for small decisions, list it, and continue.
+- The user owns these gates: big decisions (`decide`), contested review findings that need a design choice (`decide`), child tickets, and "ship". Never merge. Take a clear default for small decisions, list it, and continue.
 - Prose for the user: the `unslop` skill. Docs, PR descriptions and commit messages: the `technical-writing` skill.
 
 ## Principles

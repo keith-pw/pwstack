@@ -38,7 +38,7 @@ A Claude Code worktree under `pwrench-server/.claude/worktrees/` has its own loc
 
 | Playbook | Use when |
 |---|---|
-| Ticket | Start a Jira ticket. Research, decisions, a plan reviewed by agents, then the build. No plan mode: the build starts when the decisions are answered and the plan review has no blocking or major finding left. |
+| Ticket | Start a Jira ticket. Research, decisions, a plan reviewed by agents, then the build. No plan mode: the build starts when the decisions are answered and the plan review has no blocking or major finding left. More than 2 PR slices: it proposes child tickets. |
 | Ship | Each slice gets checks, cleanup and `review-code` against the slice below before the next slice starts. Then a test-it-yourself list, and push, PRs and Jira on "ship". Then it waits for Copilot and verifies its comments. |
 
 Playbooks live in `skills/cruise-control/playbooks/`. A debugging playbook is planned. Until then, cruise control routes bugs to principles and skills. Code review goes to the `review-code` skill.
