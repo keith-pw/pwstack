@@ -26,6 +26,7 @@ Follow this pattern:
 3. **Map the key abstractions.** What types, interfaces, services, or classes are central? Read their definitions. Understand what they represent and why they exist.
 4. **Find the boundaries.** Where does this subsystem interface with others? What goes in, what comes out?
 5. **Look for the non-obvious.** Anything surprising? Anything that looks like a historical artifact? Anything a newcomer would misunderstand?
+6. **Check real data when the flow branches on it.** If a path depends on a status, role permission or setting, the Pencilwrench MCP (`pencilwrench` server, read-only) can count which values the records on TEST actually hold. Call `list_models` and `describe_model` first, and report counts, not rows. If authentication fails, stop calling it and put `AUTHENTICATION FAILED` and the exact error as the first line of your findings.
 
 Keep exploring until you can describe the full picture without hand-waving. If you hit a part you can't trace, say so explicitly. "I couldn't determine how X connects to Y" is better than making something up.
 

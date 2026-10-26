@@ -65,7 +65,7 @@ Start ticket work with `/pwstack:cruise-control PWDEV-N`. A plain "work on PWDEV
 | `review-plan` | Adversarial review of a plan. Ticket step 5 runs it. |
 | `review-code` | Adversarial review of a diff or branch. Ship runs it. Give it a PR number (`/pwstack:review-code 1234`) to review a PR: report only, no tests run, no GitHub comments. |
 | `how` | "How does X work?" Parallel explorers plus an explainer. Critique mode on request. |
-| `why` | "Why is it built this way?" Cited evidence from git, Jira, docs, Datadog, Sentry and PostHog. |
+| `why` | "Why is it built this way?" Cited evidence from git, Jira, docs, Datadog, Sentry, PostHog and the Pencilwrench MCP. |
 | `blast-radius` | A change could break something beyond the diff. Proves safety by running code. |
 | `code-cleanup` | Once, before you push a finished change. |
 | `tdd` | A failing test first. |

@@ -10,6 +10,7 @@ The why skill spawns one investigator per available evidence category, each read
 | Infrastructure observability | [`datadog.md`](./sources/datadog.md) | Datadog via `pup` (us5) |
 | Error / exception tracking | [`sentry.md`](./sources/sentry.md) | Sentry via the `sentry` CLI |
 | Product analytics | [`posthog.md`](./sources/posthog.md) | PostHog via `posthog-cli api` |
+| Application data | [`pencilwrench-data.md`](./sources/pencilwrench-data.md) | the Pencilwrench MCP (read-only) |
 
 Cross-cutting:
 

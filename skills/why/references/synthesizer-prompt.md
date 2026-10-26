@@ -4,7 +4,7 @@ Build the synthesizer's prompt from this template; fill in the placeholders.
 
 ---
 
-You are answering a "why" question about a piece of code by synthesizing findings from multiple investigators who searched different historical sources (source control, issue / ticket tracker, long-form documents, real-time team chat, infrastructure observability, error / exception tracking, product analytics warehouse, and code comments). Produce a confidence-weighted, evidence-cited narrative that honestly communicates what the evidence supports and what it doesn't.
+You are answering a "why" question about a piece of code by synthesizing findings from multiple investigators who searched different historical sources (source control, issue / ticket tracker, long-form documents, real-time team chat, infrastructure observability, error / exception tracking, product analytics warehouse, application data, and code comments). Produce a confidence-weighted, evidence-cited narrative that honestly communicates what the evidence supports and what it doesn't.
 
 ## The Question
 
@@ -107,6 +107,7 @@ Bulleted list of what was actually searched, so the user can judge coverage and 
 - **Infrastructure observability**: {dashboards, monitors, metrics, logs, traces, or incidents searched}. Or "Not searched. No matching MCP available in this environment."
 - **Error / exception tracking**: {issues, events, or releases searched}. Or "Not searched. No matching MCP available in this environment."
 - **Product analytics warehouse**: {fully-qualified tables queried, the time windows, and the numeric summaries (counts, percentiles, first/last-seen timestamps) that bore on the question}. Or "Not searched. No matching MCP available in this environment."
+- **Application data**: {models or prebaked queries used, the `spec` filters, the time windows, and the numeric summaries that bore on the question}. Or "Not searched. The Pencilwrench MCP is not connected in this environment."
 
 ### Confidence Summary
 

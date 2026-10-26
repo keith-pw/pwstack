@@ -73,6 +73,8 @@ The explainer gets all explorers' findings and writes the human-facing explanati
 
 Present the explainer's output to the user. You may lightly edit for clarity or add context from the conversation, but don't substantially rewrite. The explainer's communication is the product.
 
+If any explorer reported `AUTHENTICATION FAILED` for the Pencilwrench MCP, tell the user at the top of your reply so they can re-authenticate the server (for example with `/mcp` in the Claude Code CLI).
+
 ### Output Format
 
 Follow this structure, adapted to the question. Not every section is needed for every question.

@@ -1,6 +1,6 @@
 ---
 name: why
-description: "Use for 'why does X work this way', 'why we picked Y', design rationale, regressions, postmortems, or data-backed thresholds. Queries each evidence category (source control, Jira, long-form docs, Datadog, Sentry, PostHog) in parallel, then returns a cited read on decisions and tradeoffs. Use how for runtime behavior."
+description: "Use for 'why does X work this way', 'why we picked Y', design rationale, regressions, postmortems, or data-backed thresholds. Queries each evidence category (source control, Jira, long-form docs, Datadog, Sentry, PostHog, Pencilwrench application data) in parallel, then returns a cited read on decisions and tradeoffs. Use how for runtime behavior."
 ---
 
 # Why
@@ -11,7 +11,7 @@ Companion to the `how` skill. `how` answers what the code does and how it works.
 
 ## How this skill works
 
-Historical context spreads across seven evidence categories: source control history, issue or ticket tracking, long-form documents, real-time team chat, infrastructure observability, error or exception tracking, and product analytics warehouses. You cannot predict from the question alone which one holds the answer, so the skill maps the team's tools to these categories, queries every covered category in parallel, then synthesizes with explicit confidence calibration. Null results from searched categories are first-class evidence about how the decision was made; report them alongside positive findings. The default is coverage, not minimalism.
+Historical context spreads across eight evidence categories: source control history, issue or ticket tracking, long-form documents, real-time team chat, infrastructure observability, error or exception tracking, product analytics warehouses, and application data. You cannot predict from the question alone which one holds the answer, so the skill maps the team's tools to these categories, queries every covered category in parallel, then synthesizes with explicit confidence calibration. Null results from searched categories are first-class evidence about how the decision was made; report them alongside positive findings. The default is coverage, not minimalism.
 
 ## Operating Posture
 
@@ -97,7 +97,7 @@ Capture this as seed context (file paths, symbols, commits, PR numbers, linked t
 
 ### Source map (Pencilwrench)
 
-The evidence sources are fixed CLIs. No runtime discovery is needed. Use `--help` on any command you are unsure of.
+The evidence sources are fixed CLIs plus one MCP server. No runtime discovery is needed. Use `--help` on any command you are unsure of.
 
 1. Source control history: `git` + `gh` (org `pencilwrench`)
 2. Issue / ticket tracker: Jira via `acli jira` (project key PWDEV)
@@ -106,12 +106,13 @@ The evidence sources are fixed CLIs. No runtime discovery is needed. Use `--help
 5. Infrastructure observability: Datadog via `pup` (us5 region)
 6. Error / exception tracking: Sentry via `sentry`
 7. Product analytics: PostHog via `posthog-cli api`
+8. Application data: the Pencilwrench MCP (`pencilwrench` server; read-only). If its investigator reports an authentication failure, tell the user plainly at the top of your reply so they can re-authenticate the server (for example with `/mcp` in the Claude Code CLI). A line in Sources Consulted is not enough.
 
 Aim for a complete **coverage map**, not a minimal one. A null result from an issue tracker is evidence the decision was not ticketed, a useful fact in itself. Document the null, don't skip the search.
 
 Launch all covered investigators in a single message so they run concurrently. One investigator per category lets each specialize in one tool's query vocabulary and result shape. Don't ask one agent to cover multiple tools.
 
-Subagent config (each): `subagent_type: Explore`. It has Bash for the CLIs and cannot write files, which is the right posture for an investigator.
+Subagent config (each): `subagent_type: Explore`. It has Bash for the CLIs and the MCP tools, and cannot write files, which is the right posture for an investigator.
 
 Each investigator gets:
 1. The base prompt from `references/investigator-prompt.md`
@@ -140,6 +141,8 @@ Each entry lists what the category physically contains and the kind of "why" it 
 
 7. **Product analytics investigator** (PostHog via `posthog-cli api`). Product-analytics events, experiment and feature-flag exposure data, usage trends, insights. Product/data view. Complements infrastructure observability by covering *user behavior and data reality* around the ship date rather than infra metrics. Best at surfacing *product and data reality that shaped the code*. Feature-usage trajectories (a step-function ramp from zero is strong evidence that this PR launched it), experiment/flag exposure data tied to ship decisions, pre-ship distributions that reveal where a threshold constant came from (e.g., `limit = 128 * 1024` matching the p99 of an upload-size column), and data-pipeline scale evidence for migrations/backfills. Strongest for flag-gated code, experiment-driven ships, data migrations, and "where did this number come from" questions.
 
+8. **Application data investigator** (the Pencilwrench MCP). Read-only counts over the app's own records: story sessions, repair orders, companies, organizations, trained dealers, users, roles and the component catalog. Data view, like product analytics, but over stored records instead of logged events. Best at surfacing *what the stored records actually look like* (on TEST, which holds production-shaped data). Whether a status or flag the code handles is still reached by real records (zero over 400 days suggests dead code), how many companies or roles depend on a permission or setting, a distribution that matches a threshold constant, and when a feature's records first appear. Strongest for dead-code, enum and status, permission and "who would this affect" questions.
+
 ### When to skip an investigator
 
 Only skip with an **explicit, written justification** that goes in the final "Sources Consulted" section. Two valid reasons:
@@ -153,7 +156,7 @@ If your scope assessment suggests a single-commit trivial target where the PR de
 
 ## Step 4. Synthesize
 
-Spawn one synthesizer subagent with `subagent_type: Explore`. Its quality check spot-verifies citations, so it needs Bash for the same CLIs the investigators used.
+Spawn one synthesizer subagent with `subagent_type: Explore`. Its quality check spot-verifies citations, so it needs Bash and the MCP tools the investigators used.
 
 The synthesizer gets:
 1. The investigator findings, including any null results and any categories skipped with justification
@@ -196,6 +199,7 @@ Example:
 - Infrastructure observability (Datadog via pup): searched for `retry_count` metric and monitors around 2025-08-14. Found monitor "Upstream 5xx rate > 1%" created same day as PR #2107.
 - Error / exception tracking (Sentry CLI): searched for issues first-seen in Aug 2025 with stack through `retry.py`. Found one issue spiking in the week before the PR.
 - Product analytics (PostHog via posthog-cli): queried daily counts of the failure-classified event for the 30-day window around 2025-08-14. Count fell from ~1.2k/day pre-PR to <50/day post-PR.
+- Application data (Pencilwrench MCP): ran `list_models` and `describe_model` looking for records the retry path writes. None of the exposed models hold retry state. Null result.
 
 After the Sources Consulted block, if the user's `why` question is a precursor to actually changing this code, convert the lineage findings into a Preserve / Change / Avoid / Risk constraint set suitable for planning the change.
 
@@ -206,7 +210,7 @@ After the Sources Consulted block, if the user's `why` question is a precursor t
 - **Recency bias**. Assuming the most recent commit is authoritative. The current shape is often the accretion of many earlier decisions. Trace back.
 - **Sycophantic agreement**. If the user suggests a reason ("I assume this is for performance?"), treat it as a hypothesis and check the evidence independently, don't just confirm it.
 - **Skipping the gaps section**. An honest accounting of what you couldn't find out is part of the value.
-- **Skipping investigators by anticipation**. Deciding up front that "long-form docs probably don't have this" or "this isn't an error tracking thing" without searching. The default-to-all-seven posture prevents this. A null result is a data point; a skipped search is a blind spot.
+- **Skipping investigators by anticipation**. Deciding up front that "long-form docs probably don't have this" or "this isn't an error tracking thing" without searching. The default-to-all-eight posture prevents this. A null result is a data point; a skipped search is a blind spot.
 - **Collapsing investigators into one agent**. Each tool has its own query vocabulary, result shape, and pitfalls; pooling them dilutes specialization and makes coverage harder to reason about. Always one investigator per category.
 
 ## Reference Files

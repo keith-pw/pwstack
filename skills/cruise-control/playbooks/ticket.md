@@ -21,7 +21,7 @@ The user owns three gates in this playbook: big decisions (`/decide`), contested
 Run these 4 in parallel subagents. The first 3 are pwstack skills. Start each one as a `general-purpose` subagent (it can start its own subagents; `Explore` cannot) and tell it: "Read `<pwstack>/skills/<name>/SKILL.md` and follow it. Return the skill's own output in full, with `file:line` evidence. Do not return raw file contents or command output." `<pwstack>` is two folders above `<cruise-control>`.
 
 - `how` skill: how the code that the issue touches works now.
-- `why` skill: the reasons behind that code (git history, Jira, docs, Sentry, Datadog, PostHog), and any design doc or plan for this work under `docs/**`.
+- `why` skill: the reasons behind that code (git history, Jira, docs, Sentry, Datadog, PostHog, the Pencilwrench MCP), and any design doc or plan for this work under `docs/**`.
 - `blast-radius` skill: what else reads or writes the data, contracts or files this change will touch.
 - The repo's `code-smells` agent, on the code this change touches: what makes this change harder than it should be? Name each smell, the refactoring that removes it, and how much of the change it makes simpler.
 
