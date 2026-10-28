@@ -15,9 +15,10 @@ Read these principles first, in full: [Prove It Works](../../../principles/prove
 Run steps 1–3 once per slice, right after the slice is built and committed, and before the next slice starts. The slice's diff is its branch against the slice below it, or against `origin/main` for the bottom slice. A change outside a ticket is one slice, and it may stay uncommitted until C.
 
 1. Checks pass on the slice's branch:
-   - the tests of each workspace or app the slice touches (`yarn workspace <name> test`, never bare `vitest`; `pytest` for Django);
+   - the tests of each workspace or app the slice touches (`yarn workspace <name> test`, never bare `vitest`; `pytest --no-migrations --create-db` for Django, as CI runs it);
    - `yarn workspace <name> lint` and the typecheck for each touched workspace;
    - `yarn fmt:write`, then `yarn pre-commit:run`.
+   CI builds the Django test database from the models, without migrations, so a test that needs rows from a data migration fails there. Local pytest reuses a migrated database (`--reuse-db` in `pyproject.toml`), which hides this.
    Each PR merges on its own, so each slice must pass on its own ([Sequence Verifiable Units](../../../principles/sequence-verifiable-units.md)). When a slice changes an API response, regenerate the client on that branch (`yarn django:host:schema && yarn build:packages`) and typecheck the front end there.
    If a check fails, fix it or tell the user. Never skip a hook or use `--no-verify`.
 2. Run `/code-cleanup` on the slice's diff.
