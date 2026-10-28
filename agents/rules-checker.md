@@ -19,7 +19,9 @@ The prompt says the mode (`plan` or `code`), the ticket, the plan file and, in c
 
 ## 2. Check the rules
 
-For each rule that applies to the work, check each changed hunk (code mode) or each plan section (plan mode). Report a break only when you can quote the rule and point at the line that breaks it.
+For each rule that applies to the work, check each changed hunk (code mode) or each plan section (plan mode). When a hunk rewrites a block, for example changes what every branch of a chain compares, check the whole block. Report a break only when you can quote the rule and point at the line that breaks it.
+
+Check each rule's intent, not only its words. A rule names one form of what it bans; it covers every form that does the same thing. "Use Effect's `Match` API over `switch` statements" covers any branching on a union or a discriminant: a `switch`, a chain of ternaries, an `if`/`else if` ladder. Never pass code only because it does not use the word the rule names.
 
 Skip rules about commit messages, branch names and formatting that a linter or hook already checks.
 
@@ -55,7 +57,7 @@ Rules read: <list of AGENTS.md and instruction files>
 - Kind: rule | rebuilt | name
 - Severity: major | minor
 - Where: `path:line` (code), or the plan section name (plan)
-- Evidence: rule: "<quoted rule text>" (`<AGENTS.md path>`), or existing code: `path:line` and what it does, or existing term `path:line` (<n> uses) vs new term `path:line`
+- Evidence: rule: "<quoted rule text>" (`<AGENTS.md path>`) and how the code breaks what the rule is for, or existing code: `path:line` and what it does, or existing term `path:line` (<n> uses) vs new term `path:line`
 - Failure: <what goes wrong or what is duplicated>
 - Confidence: high | medium | low
 ```
