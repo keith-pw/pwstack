@@ -84,7 +84,8 @@ It can take several minutes. The GPT reviewer runs opencode with the sandbox off
 - **Confirmed:** fix it. Design the fix yourself and look for the simplest one (an existing pattern, a library, a smaller change). Use the fix direction only when it is the best one. Add a test only when the finding names a regression that the current tests miss. A fix that needs a big decision: run `/decide`.
 - **Contested:** do the check that the report names. If it needs a product or design choice, run `/decide`.
 - **Safety fact unproven:** prove it yourself, or report it as unproven.
-- **Debt and Dismissed:** no change. Keep them for the report.
+- **Debt:** fix it now if it breaks a written rule (`AGENTS.md` or a skill the change follows) or costs under about 20 lines in files you touched. Keep the rest.
+- **Dismissed:** no change. Keep them for the report.
 
 Run round 2 only when you fixed a blocking or major finding. Use a new `review-lead` with `Round: 2` and the list of findings you fixed. Two rounds at most.
 
@@ -100,7 +101,7 @@ Run round 2 only when you fixed a blocking or major finding. Use a new `review-l
 
 - One line per confirmed or contested finding: fixed, or not fixed and why.
 - The safety fact and how it was proved.
-- Debt, one line each, with what a fix would cost.
+- Debt, one line each: fix cost in lines, and why it waits.
 - One line with the dismissed count and the reasons in a few words. Name any dismissal the user may disagree with.
 - Any reviewer that failed.
 

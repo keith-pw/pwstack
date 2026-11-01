@@ -58,7 +58,7 @@ Rules for the challenge:
 - A confirmed rule break is always a fix-now finding: it goes under Confirmed, never Debt, whichever reviewer raised it. A code smell or a gap that breaks a written rule is a rule break.
 - Lines the diff added, changed or rewrote are in scope. "It was already like that" dismisses a finding only on lines the diff did not change. When the diff rewrites a block, for example changes what every branch of a chain compares, the whole block is in scope.
 - A principle break is confirmed only when you read the principle, its trigger fits this work, and the cost the reviewer names is real. When the fix needs a redesign beyond the ticket, the finding is contested: the user decides.
-- A code smell is confirmed only when it makes this change, or the next likely change, harder, or when it breaks a written rule. Otherwise it is debt: keep it, with severity minor.
+- A code smell is confirmed when it makes this change or the next likely one harder, breaks a written rule, or its fix is under about 20 lines in files the change already touches. Otherwise it is debt: keep it, with severity minor.
 - A performance finding is confirmed only when you find the query, loop or import at `path:line` and a realistic input size makes it slow. In code mode with `Run tests: yes`, measure it when that is cheap (query count, timing).
 - An accessibility finding (screen readers, aria, reduced motion) is dismissed: accessibility is not a requirement.
 
@@ -105,7 +105,7 @@ Return only this, worst first in each list. Keep each line short.
 **Tests:** <requested: n kept, n dismissed. In the work: n to remove>
 
 **Debt** (real, but not worth fixing in this change; never a rule break)
-1. <smell or shortcut> — `path:line` — <what a fix would cost>
+1. <smell or shortcut> — `path:line` — <fix cost: about n lines, which files>
 
 **Dismissed**
 1. <claim> — <the reason in a few words>

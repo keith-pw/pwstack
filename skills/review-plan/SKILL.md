@@ -32,7 +32,8 @@ It can take several minutes. The GPT reviewer runs opencode with the sandbox off
 - **A reviewer failed:** tell the user which one and why, in one line. Go on with the rest.
 - **Confirmed:** change the plan. Design the fix yourself and look for the simplest one (an existing pattern, a smaller change). Use the fix direction only when it is the best one. A fix that needs a big decision: run `/decide`.
 - **Contested:** do the check that the report names. If it needs a product or design choice, run `/decide`.
-- **Debt and Dismissed:** no change. Keep them for the Review section.
+- **Debt:** change the plan if it breaks a written rule (`AGENTS.md` or a skill the change follows) or its fix is under about 20 lines in files the plan touches. Keep the rest.
+- **Dismissed:** no change. Keep them for the Review section.
 
 ## 3. Round 2
 
@@ -43,5 +44,6 @@ Run round 2 only when a blocking or major finding changed the plan. Use a new `r
 Fill in the plan's **Review** section:
 
 - One line per confirmed or contested finding: fixed, or not fixed and why.
+- Debt, one line each: fix cost in lines, and why it waits.
 - One line with the dismissed count and the reasons in a few words.
 - Any reviewer that failed.

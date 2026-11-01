@@ -44,7 +44,7 @@ Heads up lists, one line each, worst first:
 - A risk you accepted, or a review finding you dismissed that the user may disagree with.
 - A manual step: a new env var, a migration, a data fix, a feature flag.
 - A new cost: a new dependency, paid API calls, slower queries.
-- Debt this change adds: code that is now harder to change, a shortcut, a copy instead of a shared piece. Say what a fix would cost.
+- Debt this change adds: code that is now harder to change, a shortcut, a copy instead of a shared piece. Say what a fix would cost and why it waits.
 - Each default you took during the build without asking (the "Defaults I used" list).
 
 ```markdown
