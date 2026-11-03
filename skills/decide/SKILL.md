@@ -29,6 +29,7 @@ Weigh each option by two costs: the cost now, and what it does to the codebase o
 - **Small: take a clear default and list it.** A real choice that is none of the above, and that an existing pattern in the repo or agreeing references settle.
 - **Detail: decide it yourself.** Do not ask about it or list it. Private names, file splits inside a module, test layout, a refactor that keeps behavior.
 - Not sure if it is big? Treat it as big.
+- One option has no real downside? It is small, even when a Big bullet matches.
 
 ## 1. List and sort
 
