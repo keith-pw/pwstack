@@ -71,6 +71,7 @@ Start ticket work with `/pwstack:cruise-control PWDEV-N`. A plain "work on PWDEV
 | `tdd` | A failing test first. |
 | `technical-writing` | Docs, RFCs, PR descriptions, commit messages. |
 | `unslop` | Cut AI tells from any writing. |
+| `eli5` | Explain like I'm five. No argument: your last message. With one: that thing (`/pwstack:eli5 the race condition`). |
 
 ## Review
 
