@@ -104,8 +104,8 @@ Return only this, worst first in each list. Keep each line short.
 
 **Tests:** <requested: n kept, n dismissed. In the work: n to remove>
 
-**Debt** (real, but not worth fixing in this change; never a rule break)
-1. <smell or shortcut> — `path:line` — <fix cost: about n lines, which files>
+**Debt** (real, but not worth fixing in this change; never a rule break or a fix under about 20 lines in touched files)
+1. <smell or shortcut> — `path:line` — <fix cost: about n lines, which files> — <why it waits: over 20 lines, or a file the change does not touch>
 
 **Dismissed**
 1. <claim> — <the reason in a few words>
