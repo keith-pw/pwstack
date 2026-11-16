@@ -48,7 +48,7 @@ The readers are the review agents, not the user. Write for a reviewer who checks
 - **Approach**: 2–3 lines. The chosen solution and the main idea behind it.
 - **Out of scope**: one line each.
 - **Acceptance criteria**: a table, one row per criterion: the criterion → the change that meets it → its test, or "no test: <reason>".
-- **Assumptions about the code**: each one with `path:line`.
+- **Assumptions**: every fact the plan relies on, each with its evidence (`path:line`, a query, a doc). The ticket is not evidence: it may be agent-written and wrong. When the evidence contradicts the ticket, ask the user before you go on.
 - **Decisions**: each one with the user's answer from `/decide`, including "prepare first?".
 - **Changes**: per file or module, what changes.
 - **New names**: each new type, function, field or route, and the existing codebase term it follows.
