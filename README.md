@@ -26,15 +26,14 @@ Then run `/reload-plugins`, or start a new session. Check with `claude plugin li
 
 ## Update
 
-The install is a cache pinned to a git commit and a version. Uncommitted edits do not reach it. To pick up changes, bump `version` in `.claude-plugin/plugin.json` and commit. Push too if you installed from GitHub. Then run from pwrench-server:
+From a local clone, pwstack loads in place: edits apply at the next session start or `/reload-plugins`, with no version bump ([plugin loading](https://code.claude.com/docs/en/plugins/loading.md#in-place-and-copied-plugins)).
+
+From GitHub, the install is a cached copy. Bump `version` in `.claude-plugin/plugin.json`, commit and push. Then run this from pwrench-server and from each worktree under `pwrench-server/.claude/worktrees/`:
 
 ```bash
-cd ~/code/pwrench-server
 claude plugin marketplace update pencilwrench-plugins
 claude plugin update pwstack@pencilwrench-plugins --scope local
 ```
-
-A Claude Code worktree under `pwrench-server/.claude/worktrees/` has its own local install. Run the update from that worktree too, or it keeps the old version.
 
 ## Cruise control
 
