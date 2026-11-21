@@ -18,12 +18,13 @@ The user owns three gates in this playbook: big decisions (`/decide`), contested
 
 ## 2. Ground
 
-Run these 4 in parallel subagents. The first 3 are pwstack skills. Start each one as a `general-purpose` subagent (it can start its own subagents; `Explore` cannot) and tell it: "Read `<pwstack>/skills/<name>/SKILL.md` and follow it. Return the skill's own output in full, with `file:line` evidence. Do not return raw file contents or command output." `<pwstack>` is two folders above `<cruise-control>`.
+Run these 5 in parallel subagents. The first 3 are pwstack skills. Start each of those 3 as a `general-purpose` subagent (it can start its own subagents; `Explore` cannot) and tell it: "Read `<pwstack>/skills/<name>/SKILL.md` and follow it. Return the skill's own output in full, with `file:line` evidence. Do not return raw file contents or command output." `<pwstack>` is two folders above `<cruise-control>`.
 
 - `how` skill: how the code that the issue touches works now.
 - `why` skill: the reasons behind that code (git history, Jira, docs, Sentry, Datadog, PostHog, the Pencilwrench MCP), and any design doc or plan for this work under `docs/**`.
 - `blast-radius` skill: what else reads or writes the data, contracts or files this change will touch.
 - The repo's `code-smells` agent, on the code this change touches: what makes this change harder than it should be? Name each smell, the refactoring that removes it, and how much of the change it makes simpler.
+- Ticket check (a `general-purpose` subagent). Issues are often written by a model or in a hurry, so check this one. Facts: each number, limit or claim about how something works, in this repo or in an outside tool. Check each against its source (the code, the repo's docs under `docs/**`, production data from Sentry, Datadog, PostHog or the Pencilwrench MCP, or the tool's own docs). Choices: each scope, approach, limit or UI choice. Flag a choice only with evidence: it breaks a rule in `AGENTS.md` or the repo's docs, or a clearly simpler or cheaper way gives the same result. Return only the wrong facts and flagged choices, each with its evidence, or "none".
 
 ## 3. Decisions
 
@@ -33,6 +34,8 @@ List all the decisions this ticket needs. Settle details yourself.
 
 Always include "prepare first?" when step 2 found code that makes this change harder: refactor first, or build on the code as it is. Give your honest pick. "Build as it is" is the right pick only when the refactor does not make this change or the next likely ones simpler.
 
+- The issue's choices are strong defaults, not settled decisions. Keep each one that step 2 did not flag, and say nothing about it. A mock-up is weaker: it sets behavior and layout, not pixels. Take colors, spacing and components from the repo and its UI library. Where they say nothing, research the common design practice.
+- Each wrong fact or flagged choice: sort its fix like any decision. Small: one line in the defaults list, "The ticket says X; using Y (reason)". Big: a card that starts with "The ticket chose X".
 - No decisions: write "No decisions needed:" and one line for the reason. Go to step 4.
 - Otherwise, run `/decide` once, with all of them. It sorts them, researches them in one pass, and asks the user in rounds.
 
