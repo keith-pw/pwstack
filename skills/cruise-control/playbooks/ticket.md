@@ -21,10 +21,10 @@ The user owns three gates in this playbook: big decisions (`/decide`), contested
 Run these 5 in parallel subagents. The first 3 are pwstack skills. Start each of those 3 as a `general-purpose` subagent (it can start its own subagents; `Explore` cannot) and tell it: "Read `<pwstack>/skills/<name>/SKILL.md` and follow it. Return the skill's own output in full, with `file:line` evidence. Do not return raw file contents or command output." `<pwstack>` is two folders above `<cruise-control>`.
 
 - `how` skill: how the code that the issue touches works now.
-- `why` skill: the reasons behind that code (git history, Jira, docs, Sentry, Datadog, PostHog, the Pencilwrench MCP), and any design doc or plan for this work under `docs/**`.
+- `why` skill: the reasons behind that code, from all of its sources, and any design doc or plan for this work under `docs/**`.
 - `blast-radius` skill: what else reads or writes the data, contracts or files this change will touch.
 - The repo's `code-smells` agent, on the code this change touches: what makes this change harder than it should be? Name each smell, the refactoring that removes it, and how much of the change it makes simpler.
-- Ticket check (a `general-purpose` subagent). Issues are often written by a model or in a hurry, so check this one. Facts: each number, limit or claim about how something works, in this repo or in an outside tool. Check each against its source (the code, the repo's docs under `docs/**`, production data from Sentry, Datadog, PostHog or the Pencilwrench MCP, or the tool's own docs). Choices: each scope, approach, limit or UI choice. Flag a choice only with evidence: it breaks a rule in `AGENTS.md` or the repo's docs, or a clearly simpler or cheaper way gives the same result. Return only the wrong facts and flagged choices, each with its evidence, or "none".
+- Ticket check (a `general-purpose` subagent). Issues are often written by a model or in a hurry, so check this one. Facts: each number, limit or claim about how something works, in this repo or in an outside tool. Check each against its source (the code, the repo's docs under `docs/**`, production data from the sources in `<pwstack>/skills/why/references/sources/`, or the tool's own docs). Choices: each scope, approach, limit or UI choice. Flag a choice only with evidence: it breaks a rule in `AGENTS.md` or the repo's docs, or a clearly simpler or cheaper way gives the same result. Return only the wrong facts and flagged choices, each with its evidence, or "none".
 
 ## 3. Decisions
 
